@@ -8,7 +8,7 @@ interface InventoryRepository {
 
     Optional<Item> findByName(String name);
 
-    Item findById(long id);
+    Optional<Item> findById(long id);
 
     void save(Item item);
 }

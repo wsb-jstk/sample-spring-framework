@@ -1,9 +1,6 @@
 package com.capgemini.sample.sf;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 class InMemoryInventoryRepository implements InventoryRepository {
@@ -13,21 +10,36 @@ class InMemoryInventoryRepository implements InventoryRepository {
 
     @Override
     public List<Item> findAll() {
-        return null;
+        return new ArrayList<>(db.values());
     }
 
     @Override
     public Optional<Item> findByName(String name) {
-        return null;
+        return db.values()
+                .stream()
+                .filter(item -> item.getName().equals(name))
+                .findFirst();
     }
 
     @Override
-    public Item findById(long id) {
-        return null;
+    public Optional<Item> findById(long id) {
+        return Optional.ofNullable(db.get(id));
     }
 
     @Override
     public void save(Item item) {
+//        Long id = item.getId();
+//        if(id == null) {
+//            id = sequencer.getAndIncrement();
+//            item.setId(id);
+//        }
+        long id = Optional.ofNullable(item.getId()).orElseGet(() -> generateAndSetId(item));
+        db.put(id, item);
+    }
 
+    private long generateAndSetId(Item item) {
+        long newId = sequencer.getAndIncrement();
+        item.setId(newId);
+        return newId;
     }
 }

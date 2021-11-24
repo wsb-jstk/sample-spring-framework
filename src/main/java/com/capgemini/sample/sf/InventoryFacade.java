@@ -4,7 +4,7 @@ import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class InventoryFacade {
 
@@ -17,15 +17,22 @@ public class InventoryFacade {
     }
 
     public List<ItemDto> getAllItems() {
-        return repository.findAll();
+        return repository.findAll()
+                .stream()
+                .map(item -> item.asDto())
+                .collect(Collectors.toList());
     }
 
-    public Optional<ItemDto> getByName(String name) {
-        return repository.findByName(name);
+    public ItemDto getByName(String name) {
+        return repository
+                .findByName(name)
+                .map(item -> item.asDto())
+                .orElseThrow(() -> new ItemNotFoundException(name));
     }
 
     public void update(long id, ItemChangeDto itemChangeDto) {
-        Item item = repository.findById(id);
+        Item item = repository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException(id));
         item.update(itemChangeDto);
         repository.save(item);
     }
