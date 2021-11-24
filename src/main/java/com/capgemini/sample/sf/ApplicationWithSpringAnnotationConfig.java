@@ -5,6 +5,10 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+import java.util.Properties;
 
 public class ApplicationWithSpringAnnotationConfig {
 
@@ -15,7 +19,6 @@ public class ApplicationWithSpringAnnotationConfig {
 
         new ApplicationRunner().run(context.getBean(InventoryFacade.class));
     }
-
 
     @Configuration
     public static class SpringConfiguration {
@@ -37,8 +40,26 @@ public class ApplicationWithSpringAnnotationConfig {
         }
 
         @Bean
-        InventoryEventListener inventoryEventListener() {
-            return new InventoryEventListener();
+        InventoryEventListener inventoryEventListener(JavaMailSender javaMailSender) {
+            return new InventoryEventListener(javaMailSender);
+        }
+
+        @Bean
+        JavaMailSender javaMailSender() {
+            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+            mailSender.setHost("smtp.mailtrap.io");
+            mailSender.setPort(2525);
+
+            mailSender.setUsername("f3a60689e18915");
+            mailSender.setPassword("414ad6df522c7c");
+
+            Properties props = mailSender.getJavaMailProperties();
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.debug", "true");
+
+            return mailSender;
         }
 
     }
