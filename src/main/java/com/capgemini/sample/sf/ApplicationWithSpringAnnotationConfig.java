@@ -16,7 +16,7 @@ public class ApplicationWithSpringAnnotationConfig {
     }
 
 
-    @Configuration(proxyBeanMethods = true)
+    @Configuration
     public static class SpringConfiguration {
 
         @Bean(name = {"myName", "drugaNazwa", "inventoryRepository"})
@@ -30,8 +30,9 @@ public class ApplicationWithSpringAnnotationConfig {
         }
 
         @Bean
-        InventoryFacade inventoryFacade() {
-            return new InventoryFacade(inventoryRepository(), inventoryEventPublisher());
+        InventoryFacade inventoryFacade(InventoryRepository inventoryRepository,
+                                        InventoryEventPublisher inventoryEventPublisher) {
+            return new InventoryFacade(inventoryRepository, inventoryEventPublisher);
         }
 
     }
