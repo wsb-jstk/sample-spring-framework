@@ -1,5 +1,7 @@
 package com.capgemini.sample.sf;
 
+import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
+import com.capgemini.sample.sf.inventory.dto.ItemDto;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -8,20 +10,20 @@ import java.util.List;
 public class ApplicationRunner {
 
     public void run(InventoryFacade inventoryFacade) {
-        List<Item> allItems = inventoryFacade.getAllItems();
-        allItems.stream().foreach(item -> log.info("{}. {} => {}", item.getId(), item.getName(), item.getQuantity()));
+        List<ItemDto> allItems = inventoryFacade.getAllItems();
+        allItems.forEach(item -> log.info("{}. {} => {}", item.getId(), item.getName(), item.getQuantity()));
 
-        Item pencil = inventoryFacade.getItem("pencil");
+        ItemDto pencil = inventoryFacade.getByName("pencil");
         log.info("Info about pencils: {}", pencil);
 
-        UpdateChange updateQuantityTo8 = new UpdateChange(pencil.getName(), 8);
-        inventoryFacade.update(updateQuantityTo8);
+        ItemChangeDto updateQuantityTo8 = new ItemChangeDto(pencil.getName(), 8);
+        inventoryFacade.update(pencil.getId(), updateQuantityTo8);
 
-        UpdateChange updateQuantityTo0 = new UpdateChange(pencil.getName(), 0);
-        inventoryFacade.update(updateQuantityTo0);
+        ItemChangeDto updateQuantityTo0 = new ItemChangeDto(pencil.getName(), 0);
+        inventoryFacade.update(pencil.getId(), updateQuantityTo0);
 
-        List<Item> allItemsAfterChanges = inventoryFacade.getAllItems();
-        allItemsAfterChanges.stream().foreach(item -> log.info("{}. {} => {}", item.getId(), item.getName(), item.getQuantity()));
+        List<ItemDto> allItemsAfterChanges = inventoryFacade.getAllItems();
+        allItemsAfterChanges.forEach(item -> log.info("{}. {} => {}", item.getId(), item.getName(), item.getQuantity()));
     }
 
 }
