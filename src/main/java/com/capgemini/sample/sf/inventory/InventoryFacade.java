@@ -40,6 +40,7 @@ public class InventoryFacade {
     }
 
     public void update(long id, ItemChangeDto itemChangeDto) {
+        // zacznij liczyc
         Item item = repository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
         item.update(itemChangeDto);
@@ -50,5 +51,7 @@ public class InventoryFacade {
         } else if (item.getQuantity() <= STOCK_THRESHOLD) {
             publisher.publish(new BelowThresholdEvent(item.asDto(), STOCK_THRESHOLD));
         }
+        // skoncz liczyc
+        // zwroc wynik
     }
 }
