@@ -1,4 +1,4 @@
-package com.capgemini.sample.sf;
+package com.capgemini.sample.sf.inventory;
 
 import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
@@ -13,7 +13,7 @@ public class InventoryFacade {
 
     public InventoryFacade() {
         repository = new InMemoryInventoryRepository();
-        publisher = new InventoryEventPublisher();
+        publisher = new InventoryLoggingEventPublisher();
     }
 
     public List<ItemDto> getAllItems() {

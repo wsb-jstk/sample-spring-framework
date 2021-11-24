@@ -1,4 +1,4 @@
-package com.capgemini.sample.sf;
+package com.capgemini.sample.sf.inventory;
 
 public class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException(String name) {

@@ -1,4 +1,4 @@
-package com.capgemini.sample.sf;
+package com.capgemini.sample.sf.inventory;
 
 import java.util.List;
 import java.util.Optional;

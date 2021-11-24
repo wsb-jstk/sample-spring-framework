@@ -1,4 +1,5 @@
-package com.capgemini.sample.sf;
+package com.capgemini.sample.sf.inventory;
+
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;

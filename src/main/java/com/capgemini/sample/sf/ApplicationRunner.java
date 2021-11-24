@@ -1,5 +1,6 @@
 package com.capgemini.sample.sf;
 
+import com.capgemini.sample.sf.inventory.InventoryFacade;
 import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
 import lombok.extern.slf4j.Slf4j;
