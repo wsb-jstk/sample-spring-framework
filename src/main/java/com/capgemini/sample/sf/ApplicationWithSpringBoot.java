@@ -1,28 +1,23 @@
 package com.capgemini.sample.sf;
 
 import com.capgemini.sample.sf.inventory.*;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.Properties;
-
-public class ApplicationWithSpringAnnotationConfig {
+@SpringBootApplication
+public class ApplicationWithSpringBoot {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
-
-        InventorySampleData.initSampleItems(context.getBean(InventoryRepository.class));
-
-        new ApplicationRunner().run(context.getBean(InventoryFacade.class));
+        new SpringApplication().run(ApplicationWithSpringBoot.class);
     }
 
     @Configuration
-    @PropertySource("classpath:application.properties")
     public static class SpringConfiguration {
 
         @Bean(name = {"myName", "drugaNazwa", "inventoryRepository"})
@@ -47,22 +42,17 @@ public class ApplicationWithSpringAnnotationConfig {
         }
 
         @Bean
-        JavaMailSender javaMailSender() {
-            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-            mailSender.setHost("smtp.mailtrap.io");
-            mailSender.setPort(2525);
-
-            mailSender.setUsername("f3a60689e18915");
-            mailSender.setPassword("414ad6df522c7c");
-
-            Properties props = mailSender.getJavaMailProperties();
-            props.put("mail.transport.protocol", "smtp");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.debug", "true");
-
-            return mailSender;
+        @Order(1)
+        ApplicationRunner initSampleData(InventoryRepository repository) {
+            return args -> InventorySampleData.initSampleItems(repository);
         }
+
+        @Bean
+        @Order(2)
+        ApplicationRunner runAssignment(InventoryFacade facade) {
+            return args -> new AssignmentRunner().run(facade);
+        }
+
 
     }
 
