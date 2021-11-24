@@ -1,6 +1,7 @@
 package com.capgemini.sample.sf;
 
 import com.capgemini.sample.sf.inventory.*;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,14 +26,19 @@ public class ApplicationWithSpringAnnotationConfig {
         }
 
         @Bean
-        InventoryEventPublisher inventoryEventPublisher() {
-            return new InventoryLoggingEventPublisher();
+        InventoryEventPublisher inventoryEventPublisher(ApplicationEventPublisher publisher) {
+            return new InventorySpringEventPublisher(publisher);
         }
 
         @Bean
         InventoryFacade inventoryFacade(InventoryRepository inventoryRepository,
                                         InventoryEventPublisher inventoryEventPublisher) {
             return new InventoryFacade(inventoryRepository, inventoryEventPublisher);
+        }
+
+        @Bean
+        InventoryEventListener inventoryEventListener() {
+            return new InventoryEventListener();
         }
 
     }
