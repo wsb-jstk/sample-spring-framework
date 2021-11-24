@@ -11,9 +11,9 @@ public class InventoryFacade {
     private final InventoryRepository repository;
     private final InventoryEventPublisher publisher;
 
-    public InventoryFacade() {
-        repository = new InMemoryInventoryRepository();
-        publisher = new InventoryLoggingEventPublisher();
+    public InventoryFacade(InventoryRepository repository, InventoryEventPublisher publisher) {
+        this.repository = repository;
+        this.publisher = publisher;
     }
 
     public List<ItemDto> getAllItems() {

@@ -15,6 +15,16 @@ class Item {
 //    Instant createdOn;
 //    String createdBy;
 
+    private Item(Long id, String name, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+    public static Item fromDto(ItemDto itemDto) {
+        return new Item(null, itemDto.getName(), itemDto.getQuantity());
+    }
+
     public ItemDto asDto() {
         return new ItemDto(id, name, quantity);
     }

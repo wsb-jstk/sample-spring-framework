@@ -3,7 +3,7 @@ package com.capgemini.sample.sf.inventory;
 import java.util.List;
 import java.util.Optional;
 
-interface InventoryRepository {
+public interface InventoryRepository {
     List<Item> findAll();
 
     Optional<Item> findByName(String name);

@@ -15,4 +15,18 @@ public class ItemDto {
         this.quantity = quantity;
     }
 
+    public ItemDto(String name, int quantity) {
+        this.id = 0l;
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
