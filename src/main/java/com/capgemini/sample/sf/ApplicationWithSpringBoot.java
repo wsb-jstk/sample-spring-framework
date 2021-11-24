@@ -1,13 +1,11 @@
 package com.capgemini.sample.sf;
 
 import com.capgemini.sample.sf.inventory.*;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @SpringBootApplication
@@ -40,19 +38,6 @@ public class ApplicationWithSpringBoot {
         InventoryEventListener inventoryEventListener(JavaMailSender javaMailSender) {
             return new InventoryEventListener(javaMailSender);
         }
-
-        @Bean
-        @Order(1)
-        ApplicationRunner initSampleData(InventoryRepository repository) {
-            return args -> InventorySampleData.initSampleItems(repository);
-        }
-
-        @Bean
-        @Order(2)
-        ApplicationRunner runAssignment(InventoryFacade facade) {
-            return args -> new AssignmentRunner().run(facade);
-        }
-
 
     }
 
