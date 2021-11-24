@@ -4,12 +4,16 @@ import com.capgemini.sample.sf.inventory.event.BelowThresholdEvent;
 import com.capgemini.sample.sf.inventory.event.InventoryEvent;
 import com.capgemini.sample.sf.inventory.event.NoItemOnStockEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @Slf4j
 public class InventoryEventListener {
+
+    @Value("${operation-team.mail}")
+    private String operationTeamMail;
 
     private final JavaMailSender javaMailSender;
 
@@ -32,7 +36,7 @@ public class InventoryEventListener {
         log.info("Got no-item-event: {}", event);
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("operation.team@not-existing.domain.pl");
+        message.setTo(operationTeamMail);
         message.setText("Got event: " + event);
 
         javaMailSender.send(message);

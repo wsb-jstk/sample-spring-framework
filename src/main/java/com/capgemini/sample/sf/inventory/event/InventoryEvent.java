@@ -6,4 +6,10 @@ public abstract class InventoryEvent {
 
     private final Instant createdOn = Instant.now();
 
+    @Override
+    public String toString() {
+        return "InventoryEvent{" +
+                "createdOn=" + createdOn +
+                '}';
+    }
 }

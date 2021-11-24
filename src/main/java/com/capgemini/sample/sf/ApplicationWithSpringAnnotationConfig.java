@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -21,6 +22,7 @@ public class ApplicationWithSpringAnnotationConfig {
     }
 
     @Configuration
+    @PropertySource("classpath:application.properties")
     public static class SpringConfiguration {
 
         @Bean(name = {"myName", "drugaNazwa", "inventoryRepository"})
