@@ -1,5 +1,6 @@
 package com.capgemini.sample.sf.inventory;
 
+import com.capgemini.sample.sf.infrastructure.Registrator;
 import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
 
@@ -14,6 +15,11 @@ public class InventoryFacade {
     public InventoryFacade(InventoryRepository repository, InventoryEventPublisher publisher) {
         this.repository = repository;
         this.publisher = publisher;
+    }
+
+    public InventoryFacade(Registrator registrator) {
+        this.repository = registrator.getObject(InventoryRepository.class);
+        this.publisher = registrator.getObject(InventoryEventPublisher.class);
     }
 
     public List<ItemDto> getAllItems() {

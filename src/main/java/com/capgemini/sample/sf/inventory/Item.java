@@ -9,9 +9,9 @@ import lombok.Setter;
 @Getter
 class Item {
 
-    Long id;
-    String name;
-    int quantity;
+    private Long id;
+    private String name;
+    private int quantity;
 //    Instant createdOn;
 //    String createdBy;
 
