@@ -1,9 +1,11 @@
 package com.capgemini.sample.sf.inventory;
 
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Component
 public class InMemoryInventoryRepository implements InventoryRepository {
 
     private final Map<Long, Item> db = new HashMap<>();

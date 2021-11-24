@@ -4,17 +4,25 @@ import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
 import com.capgemini.sample.sf.inventory.event.BelowThresholdEvent;
 import com.capgemini.sample.sf.inventory.event.NoItemOnStockEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class InventoryFacade {
 
     private static final int STOCK_THRESHOLD = 10;
-    private final InventoryRepository repository;
-    private final InventoryEventPublisher publisher;
+    private InventoryRepository repository;
+    private InventoryEventPublisher publisher;
 
-    public InventoryFacade(InventoryRepository repository, InventoryEventPublisher publisher) {
+    @Autowired // leaving @Autowired as example (it's not required)
+    public InventoryFacade(InventoryRepository repository
+            , @Qualifier("inventorySpringEventPublisher") InventoryEventPublisher publisher
+                           // , @Qualifier("inventoryLoggingEventPublisher") InventoryEventPublisher publisher
+    ) {
         this.repository = repository;
         this.publisher = publisher;
     }
@@ -22,19 +30,18 @@ public class InventoryFacade {
     public List<ItemDto> getAllItems() {
         return repository.findAll()
                 .stream()
-                .map(item -> item.asDto())
+                .map(Item::asDto) // .map(item -> item.asDto())
                 .collect(Collectors.toList());
     }
 
     public ItemDto getByName(String name) {
         return repository
                 .findByName(name)
-                .map(item -> item.asDto())
+                .map(Item::asDto) // .map(item -> item.asDto())
                 .orElseThrow(() -> new ItemNotFoundException(name));
     }
 
     public void update(long id, ItemChangeDto itemChangeDto) {
-        // zacznij liczyc
         Item item = repository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
         item.update(itemChangeDto);
@@ -45,7 +52,5 @@ public class InventoryFacade {
         } else if (item.getQuantity() <= STOCK_THRESHOLD) {
             publisher.publish(new BelowThresholdEvent(item.asDto(), STOCK_THRESHOLD));
         }
-        // skoncz liczyc
-        // zwroc wynik
     }
 }
