@@ -13,6 +13,11 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot-dependencies.version>2.5.6</spring-boot-dependencies.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <!-- properties -->
+        <tomcat.deployment.url>http://localhost:8080/manager/text</tomcat.deployment.url>
+        <tomcat.deployment.login>tomcat-script</tomcat.deployment.login>
+        <!-- by default it's tomcat-script:s3cret but I have changed password in tomcat-users.xml -->
+        <tomcat.deployment.password>tomcat</tomcat.deployment.password>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -62,6 +67,19 @@
                 <configuration>
                     <!-- adding this plugin to explicit enabling filtering in web.xml to use properties from pom.xml with ${} -->
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- call `mvn package tomcat7:redeploy -->
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <url>${tomcat.deployment.url}</url>
+                    <username>${tomcat.deployment.login}</username>
+                    <password>${tomcat.deployment.password}</password>
+                    <contextReloadable>true</contextReloadable>
+                    <finalName>mvc</finalName>
+                    <path>/mvc</path>
                 </configuration>
             </plugin>
         </plugins>
