@@ -12,12 +12,8 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring-boot-dependencies.version>2.5.6</spring-boot-dependencies.version>
+        <spring-boot-maven-plugin.version>2.5.6</spring-boot-maven-plugin.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
-        <!-- properties -->
-        <tomcat.deployment.url>http://localhost:8080/manager/text</tomcat.deployment.url>
-        <tomcat.deployment.login>tomcat-script</tomcat.deployment.login>
-        <!-- by default it's tomcat-script:s3cret but I have changed password in tomcat-users.xml -->
-        <tomcat.deployment.password>tomcat</tomcat.deployment.password>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -47,15 +43,8 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
-            <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -67,20 +56,14 @@
                 <configuration>
                     <!-- adding this plugin to explicit enabling filtering in web.xml to use properties from pom.xml with ${} -->
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+                    <!-- So it will be possible to compile WAR without web.xml-->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
             <plugin>
-                <!-- call `mvn package tomcat7:redeploy -->
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <url>${tomcat.deployment.url}</url>
-                    <username>${tomcat.deployment.login}</username>
-                    <password>${tomcat.deployment.password}</password>
-                    <contextReloadable>true</contextReloadable>
-                    <finalName>mvc</finalName>
-                    <path>/mvc</path>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
