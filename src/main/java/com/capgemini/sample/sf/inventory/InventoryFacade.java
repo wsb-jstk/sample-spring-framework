@@ -43,6 +43,13 @@ public class InventoryFacade {
                 .orElseThrow(() -> new ItemNotFoundException(name));
     }
 
+    public ItemDto getById(long id) {
+        return repository
+                .findById(id)
+                .map(Item::asDto) // .map(item -> item.asDto())
+                .orElseThrow(() -> new ItemNotFoundException(id));
+    }
+
     @MeasureTime
     @LogInputArguments
     public void update(long id, ItemChangeDto itemChangeDto) {

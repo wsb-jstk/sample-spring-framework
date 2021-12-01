@@ -27,7 +27,7 @@ spring.mail.properties.mail.smtp.starttls.enable=true
     - [x] z jakimi parametrami zostala wywołana metoda
 - [ ] zamiast uzywac `AssignmentRunner`, stworz endpointy, ktore beda obslugiwaly:
     - [x] GET /inventory - lista wszystkich produktow
-    - [ ] POST /inventory/[name] - zaktualizuje produkt o podane w Body wartosci
+    - [x] POST /inventory/[name] - zaktualizuje produkt o podane w Body wartosci
 - [ ] napisz Filtr, który będzie logował IP osoby, która wywołuje request
 
 # Working with Tomcat
