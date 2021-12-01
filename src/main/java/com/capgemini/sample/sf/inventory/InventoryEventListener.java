@@ -4,24 +4,15 @@ import com.capgemini.sample.sf.inventory.event.BelowThresholdEvent;
 import com.capgemini.sample.sf.inventory.event.InventoryEvent;
 import com.capgemini.sample.sf.inventory.event.NoItemOnStockEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+/**
+ * Example how to use {@link EventListener}
+ */
 @Slf4j
 @Component
 class InventoryEventListener {
-
-    @Value("${operation-team.mail}")
-    private String operationTeamMail;
-
-    private final JavaMailSender javaMailSender;
-
-    public InventoryEventListener(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
 
     @EventListener
     public void onAllEvents(InventoryEvent event) {
@@ -36,12 +27,6 @@ class InventoryEventListener {
     @EventListener
     public void onNoStockListener(NoItemOnStockEvent event) {
         log.info("Got no-item-event: {}", event);
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(operationTeamMail);
-        message.setText("Got event: " + event);
-
-        javaMailSender.send(message);
     }
 
 }
