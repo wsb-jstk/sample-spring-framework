@@ -1,5 +1,6 @@
 package com.capgemini.sample.sf.inventory;
 
+import com.capgemini.sample.sf.infrastruture.aspect.LogInputArguments;
 import com.capgemini.sample.sf.infrastruture.aspect.MeasureTime;
 import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
@@ -43,6 +44,7 @@ public class InventoryFacade {
     }
 
     @MeasureTime
+    @LogInputArguments
     public void update(long id, ItemChangeDto itemChangeDto) {
         Item item = repository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));

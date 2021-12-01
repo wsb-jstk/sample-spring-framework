@@ -24,7 +24,7 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 - [x] policzy czas wykonywania się operacji zmniejszania ilości produktów na magazynie. Zaloguj informacje:
     - [x] jak dlugo wykonywala sie operacja
-    - [ ] z jakimi parametrami zostala wywołana metoda
+    - [x] z jakimi parametrami zostala wywołana metoda
 
 # Articles
 
