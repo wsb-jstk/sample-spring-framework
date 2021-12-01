@@ -48,6 +48,10 @@
             <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>mvc</finalName>
