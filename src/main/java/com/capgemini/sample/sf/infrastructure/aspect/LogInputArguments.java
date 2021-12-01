@@ -1,4 +1,4 @@
-package com.capgemini.sample.sf.infrastruture.aspect;
+package com.capgemini.sample.sf.infrastructure.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

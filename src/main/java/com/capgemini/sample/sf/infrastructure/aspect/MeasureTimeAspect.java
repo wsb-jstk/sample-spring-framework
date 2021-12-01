@@ -1,4 +1,4 @@
-package com.capgemini.sample.sf.infrastruture.aspect;
+package com.capgemini.sample.sf.infrastructure.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MeasureTimeAspect {
 
-    @Around("@annotation(MeasureTime)")
+    @Around("@annotation(com.capgemini.sample.sf.infrastructure.aspect.MeasureTime)")
     public Object measureTimeOfExecution(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         final Object result = joinPoint.proceed();

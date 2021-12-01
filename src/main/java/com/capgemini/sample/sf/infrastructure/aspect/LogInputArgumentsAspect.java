@@ -1,4 +1,4 @@
-package com.capgemini.sample.sf.infrastruture.aspect;
+package com.capgemini.sample.sf.infrastructure.aspect;
 
 import lombok.Builder;
 import lombok.Value;
@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class LogInputArgumentsAspect {
 
-    @Before(value = "@annotation(LogInputArguments)")
+    @Before(value = "@annotation(com.capgemini.sample.sf.infrastructure.aspect.LogInputArguments)")
     public void logMethodArgumentsAndValues(final JoinPoint joinPoint) {
         final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         final String[] argumentNames = signature.getParameterNames();
