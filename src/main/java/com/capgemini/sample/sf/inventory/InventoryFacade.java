@@ -1,5 +1,6 @@
 package com.capgemini.sample.sf.inventory;
 
+import com.capgemini.sample.sf.infrastruture.aspect.MeasureTime;
 import com.capgemini.sample.sf.inventory.dto.ItemChangeDto;
 import com.capgemini.sample.sf.inventory.dto.ItemDto;
 import com.capgemini.sample.sf.inventory.event.BelowThresholdEvent;
@@ -41,6 +42,7 @@ public class InventoryFacade {
                 .orElseThrow(() -> new ItemNotFoundException(name));
     }
 
+    @MeasureTime
     public void update(long id, ItemChangeDto itemChangeDto) {
         Item item = repository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
