@@ -54,8 +54,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <!-- adding this plugin to explicit enabling filtering in web.xml to use properties from pom.xml with ${} -->
-                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                     <!-- So it will be possible to compile WAR without web.xml-->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
