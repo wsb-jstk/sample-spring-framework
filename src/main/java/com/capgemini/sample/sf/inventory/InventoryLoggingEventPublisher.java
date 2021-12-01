@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class InventoryLoggingEventPublisher implements InventoryEventPublisher {
+class InventoryLoggingEventPublisher implements InventoryEventPublisher {
 
     @Override
     public void publish(InventoryEvent event) {

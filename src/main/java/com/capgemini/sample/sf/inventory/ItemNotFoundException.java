@@ -1,6 +1,6 @@
 package com.capgemini.sample.sf.inventory;
 
-public class ItemNotFoundException extends RuntimeException {
+class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException(String name) {
         super("Item with name " + name + " does not exist");
     }

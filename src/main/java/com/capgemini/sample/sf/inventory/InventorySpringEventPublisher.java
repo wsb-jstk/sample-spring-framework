@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 // @org.springframework.context.annotation.Primary // example
-public class InventorySpringEventPublisher implements InventoryEventPublisher {
+class InventorySpringEventPublisher implements InventoryEventPublisher {
 
     private final ApplicationEventPublisher publisher;
 

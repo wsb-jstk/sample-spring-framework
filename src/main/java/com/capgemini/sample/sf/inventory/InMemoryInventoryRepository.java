@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Component
-public class InMemoryInventoryRepository implements InventoryRepository {
+class InMemoryInventoryRepository implements InventoryRepository {
 
     private final Map<Long, Item> db = new HashMap<>();
     private final AtomicLong sequencer = new AtomicLong(1);

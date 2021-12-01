@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class InventoryEventListener {
+class InventoryEventListener {
 
     @Value("${operation-team.mail}")
     private String operationTeamMail;
