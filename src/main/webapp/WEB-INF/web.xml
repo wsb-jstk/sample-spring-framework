@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+    <display-name>Sample display name</display-name>
+    <description>Sample project description</description>
+    <context-param>
+        <param-name>webInitParam</param-name>
+        <param-value>Main context param</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>ThisIsHelloWorldServletName</servlet-name>
+        <servlet-class>com.capgemini.sample.sf.infrastructure.servlet.HelloWorldServlet</servlet-class>
+        <init-param>
+            <param-name>servletInitValue</param-name>
+            <param-value>Servlet's init param</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ThisIsHelloWorldServletName</servlet-name>
+        <url-pattern>/hello</url-pattern>
+        <!-- http://localhost:8080/mvc/hello -->
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThisIsHelloWorldServletName</servlet-name>
+        <url-pattern>*.abc</url-pattern>
+        <!-- http://localhost:8080/mvc/test.abc -->
+    </servlet-mapping>
+</web-app>
