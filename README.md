@@ -25,6 +25,10 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 - [x] policzy czas wykonywania się operacji zmniejszania ilości produktów na magazynie. Zaloguj informacje:
     - [x] jak dlugo wykonywala sie operacja
     - [x] z jakimi parametrami zostala wywołana metoda
+- [ ] zamiast uzywac `AssignmentRunner`, stworz endpointy, ktore beda obslugiwaly:
+    - [ ] GET /inventory - lista wszystkich produktow
+    - [ ] POST /inventory/[name] - zaktualizuje produkt o podane w Body wartosci
+- [ ] napisz Filtr, który będzie logował IP osoby, która wywołuje request
 
 # Articles
 
