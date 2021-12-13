@@ -1,5 +1,6 @@
 package com.capgemini.sample.sf.infrastructure.controller;
 
+import lombok.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,5 +22,21 @@ public class HelloWorldController {
     @GetMapping("/hello3")
     public String helloName(@RequestParam("name") String name) {
         return "Hello " + name + "!";
+    }
+
+    @GetMapping("/hello-with-exception")
+    public String helloName() {
+        throw new IllegalStateException("some error");
+    }
+
+    @ResponseBody
+    @ExceptionHandler
+    public CustomError customExceptionHandler(IllegalStateException exception) {
+        return new CustomError(exception.getMessage());
+    }
+
+    @Value
+    private static class CustomError {
+        String text;
     }
 }
